@@ -42,7 +42,7 @@ HAL_StatusTypeDef WS2812B_Init() {
   return hal_status;
 }
 
-void WS2812B_Set_Colour(uint8_t index, uint8_t g, uint8_t r, uint8_t b) {
+void WS2812B_Set_Colour(uint8_t index, uint8_t r, uint8_t g, uint8_t b) {
   WS2812B_LED_DATA[index].colour.r = r;
   WS2812B_LED_DATA[index].colour.g = g;
   WS2812B_LED_DATA[index].colour.b = b;
