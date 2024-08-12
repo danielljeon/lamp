@@ -1,12 +1,13 @@
 /**
-  ******************************************************************************
-  * @file           : driver_ws2812b.c
-  * @brief          : Driver for addressable LED (WS2812B).
-  ******************************************************************************
-  * @note:
-  * Based on Phil’s Lab "STM32 + RGB LEDs Firmware Tutorial (TIM + DMA) - Phil's Lab #136" (https://youtu.be/MqbJTj0Cw6o).
-  ******************************************************************************
-  */
+ *******************************************************************************
+ * @file           : driver_ws2812b.c
+ * @brief          : Driver for addressable LED (WS2812B).
+ *******************************************************************************
+ * @note:
+ * Based on Phil’s Lab "STM32 + RGB LEDs Firmware Tutorial (TIM + DMA) - Phil's
+ * Lab #136" (https://youtu.be/MqbJTj0Cw6o).
+ *******************************************************************************
+ */
 
 /*
  * Includes.
@@ -64,15 +65,15 @@ HAL_StatusTypeDef WS2812B_Update() {
     for (uint8_t bits = 0; bits < WS2812B_BITS_PER_LED; bits++, buffer_i++) {
 
       // Calculate total bit shift.
-      const uint8_t byte = bits / 8 * 8;  // Calculate byte offset as bit count.
+      const uint8_t byte = bits / 8 * 8; // Calculate byte offset as bit count.
       const uint8_t bit = 7 - bits % 8;  // Calculate bit position.
-      const uint8_t bit_index = byte + bit;  // Calculate total bit shift.
+      const uint8_t bit_index = byte + bit; // Calculate total bit shift.
 
       // Update DMA buffer to match LED data.
-      if (WS2812B_LED_DATA[led].data >> bit_index & 0x01)  // If bit is set.
+      if (WS2812B_LED_DATA[led].data >> bit_index & 0x01) // If bit is set.
         WS2812B_DMA_BUF[buffer_i] = WS2812B_HI_VAL_DUTY;  // High.
       else
-        WS2812B_DMA_BUF[buffer_i] = WS2812B_LO_VAL_DUTY;  // Low.
+        WS2812B_DMA_BUF[buffer_i] = WS2812B_LO_VAL_DUTY; // Low.
     }
 
     // Reset is already set to zero during WS2812B_Init.
@@ -80,11 +81,7 @@ HAL_StatusTypeDef WS2812B_Update() {
 
   // Attempt DMA transfer.
   const HAL_StatusTypeDef hal_status = HAL_TIM_PWM_Start_DMA(
-          &WS2812B_TIM,
-          WS2812B_TIM_CHANNEL,
-          WS2812B_DMA_BUF,
-          WS2812B_DMA_BUF_LEN
-  );
+      &WS2812B_TIM, WS2812B_TIM_CHANNEL, WS2812B_DMA_BUF, WS2812B_DMA_BUF_LEN);
 
   // If DMA transfer started successfully.
   if (hal_status == HAL_OK) {
