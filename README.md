@@ -90,7 +90,7 @@ On CubeMX, enable NVIC for TIM1.
 
 ### 1.5 WS2812B Driver
 
-The WS2812B is made of up 2 files:
+The WS2812B driver is made of 2 files:
 
 1. [driver_ws2812b.h](Core/Inc/driver_ws2812b.h)
 2. [driver_ws2812b.c](Core/Src/driver_ws2812b.c)
@@ -101,18 +101,18 @@ Duty cycle required for PWM control:
 
 $$D = \frac{PW}{T} \times 100$$
 
-- $D$ = Duty cycle.
-- $PW$ = Pulse width active time.
-- $T$ = Total signal time period. (Recall, 1.25 us)
+- $D$ = Duty cycle, required calculation.
+- $PW$ = Pulse width (active time), as defined by the datasheet.
+- $T$ = Total signal time period, 1.25 µs, as defined by the datasheet.
 
 | Operation | $PW$   | Margin  | $D$ |
 |-----------|--------|---------|-----|
-| 0 code    | 0.4 us | ±150 ns | 32% |
-| 1 code    | 0.8 us | ±150 ns | 64% |
+| 0 code    | 0.4 µs | ±150 ns | 32% |
+| 1 code    | 0.8 µs | ±150 ns | 64% |
 
 #### 1.5.2 Reset Code Time Periods Calculation
 
-The datasheet requires a low signal of > 50 us. Thus, the number of full (low)
+The datasheet requires a low signal of > 50 µs. Thus, the number of full (low)
 cycles is given by:
 
 $$50 \space \mathrm{\mu s} \div 1.25 \space \mathrm{\mu s} = 40$$
