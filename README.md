@@ -35,7 +35,8 @@ STM32L432KC driving WS2812B LEDs.
 
 ## 2 WS2812B
 
-Following setup for the STM32L432KC.
+Individually addressable RGB LED with an integrated control circuit over a
+series single-wire data protocol.
 
 ### 2.1 Clocks
 
@@ -44,9 +45,10 @@ APB2: 80 MHz (Clock for TIM1CH[1:4]).
 All subsequent calculations assume an 80 MHz peripheral clock on the PWM timer
 channel (STM32L432KC).
 
-### 2.2 PWM Timer
+### 2.2 Pulse Width Modulation (PWM) Timer
 
-A PWM timer is utilized generate pulse timing signals to the WS2812B.
+A Pulse Width Modulation (PWM) timer is utilized generate data signals to the
+WS2812B.
 
 PA8 → Timer 1 Channel 1 → PWM Generation CH1.
 
