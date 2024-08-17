@@ -9,24 +9,18 @@
  *******************************************************************************
  */
 
-/*
- * Includes.
- */
+/* Includes. */
 
 #include "driver_ws2812b.h"
 
-/*
- * Variables.
- */
+/* Variables. */
 
 extern TIM_HandleTypeDef htim1;
 WS2812B_LED_DATA_RGB WS2812B_LED_DATA[LED_COUNT];
 uint8_t WS2812B_DMA_BUF[WS2812B_DMA_BUF_LEN];
 volatile uint8_t WS2812B_DMA_COMPLETE_FLAG;
 
-/*
- * Functions.
- */
+/* Functions. */
 
 /**
  * @brief  Initializes the WS2812B LED control system.

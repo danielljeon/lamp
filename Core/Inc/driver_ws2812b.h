@@ -13,15 +13,11 @@
 #ifndef __DRIVER_WS2812B_H
 #define __DRIVER_WS2812B_H
 
-/*
- * Includes.
- */
+/* Includes. */
 
 #include "stm32l4xx_hal.h"
 
-/*
- * Definitions.
- */
+/* Definitions. */
 
 #define LED_COUNT 5
 
@@ -78,17 +74,13 @@ typedef union {
 
 } WS2812B_LED_DATA_RGB;
 
-/*
- * Variables.
- */
+/* Variables. */
 
 extern WS2812B_LED_DATA_RGB WS2812B_LED_DATA[LED_COUNT];
 extern uint8_t WS2812B_DMA_BUF[WS2812B_DMA_BUF_LEN];
 extern volatile uint8_t WS2812B_DMA_COMPLETE_FLAG;
 
-/*
- * Functions.
- */
+/* Functions. */
 
 /**
  * @brief  Initializes the WS2812B LED control system.
