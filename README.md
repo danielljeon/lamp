@@ -24,12 +24,9 @@ STM32L432KC driving WS2812B LEDs.
 
 ## 1 Pin Configurations
 
-| STM32L432KC Pin | Config            | Connection         |
-|-----------------|-------------------|--------------------|
-| PA0             | RCC_CK_IN HSE     |                    |
-| PA8             | TIM1_CH1 PWM      | WS2812B Pin 1: DIN |
-| PC14            | RCC_OSC32_IN LSE  |                    |
-| PC15            | RCC_OSC32_OUT LSE |                    |
+| STM32L432KC | Peripheral | Config | Connection         |
+|-------------|------------|--------|--------------------|
+| PA8         | TIM1_CH1   | PWM    | WS2812B Pin 1: DIN |
 
 ---
 
