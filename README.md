@@ -129,10 +129,18 @@ Direct Memory Access (DMA) is used to transfer the color data for the WS2812B
 LEDs directly from memory to the PWM timer's registers without requiring CPU
 overhead.
 
-On CubeMX, configure `TIM1_CH1` for a DMA channel:
+DMA TIM1_CH1 is set up accordingly:
 
-- Memory to Peripheral.
-- Normal request with memory increment addressing, data width "Byte".
+- Direction: `Memory to Peripheral`.
+    - Software tells what to send on the output.
+- Transaction mode: `Normal Request`.
+    - Send the PWM signal just once, not continuous mode (repeat always).
+- Source (Memory) `Increment addressing on Memory = enabled`.
+- Source (Memory) `Data Width = Byte`.
+    - Source code will handle data widths in bytes.
+- Destination (Peripheral) `Increment addressing on Memory = disabled`.
+- Destination (Peripheral) `Data Width = Half Word`.
+    - TIM1 is a 16 bit/16 pulse PWM timer, matching the Half Word (16 bits).
 
 ### 2.4 Nested Vectored Interrupt Controller (NVIC)
 
