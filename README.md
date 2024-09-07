@@ -1,5 +1,7 @@
 # lamp
 
+![arm_gcc_build](https://github.com/danielljeon/lamp/actions/workflows/arm_gcc_build.yaml/badge.svg)
+
 STM32L432KC driving WS2812B LEDs.
 
 ---
