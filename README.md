@@ -7,10 +7,13 @@ STM32L432KC driving WS2812B LEDs.
 <details markdown="1">
   <summary>Table of Contents</summary>
 
-- [1 Pin Configurations](#1-pin-configurations)
+- [1 Overview](#1-overview)
+    - [1.1 Bill of Materials (BOM)](#11-bill-of-materials-bom)
+    - [1.2 Pin Configurations](#12-pin-configurations)
+    - [1.3 Clock Configurations](#13-clock-configurations)
 - [2 WS2812B](#2-ws2812b)
     - [2.1 Clocks](#21-clocks)
-    - [2.2 PWM Timer](#22-pwm-timer)
+    - [2.2 Pulse Width Modulation (PWM) Timer](#22-pulse-width-modulation-pwm-timer)
         - [2.2.1 Timer Calculations](#221-timer-calculations)
     - [2.3 Direct Memory Access (DMA)](#23-direct-memory-access-dma)
     - [2.4 Nested Vectored Interrupt Controller (NVIC)](#24-nested-vectored-interrupt-controller-nvic)
@@ -22,11 +25,51 @@ STM32L432KC driving WS2812B LEDs.
 
 ---
 
-## 1 Pin Configurations
+## 1 Overview
 
-| STM32L432KC | Peripheral | Config | Connection         |
-|-------------|------------|--------|--------------------|
-| PA8         | TIM1_CH1   | PWM    | WS2812B Pin 1: DIN |
+### 1.1 Bill of Materials (BOM)
+
+| Manufacturer Part Number | Manufacturer       | Description         | Quantity | Notes     |
+|--------------------------|--------------------|---------------------|---------:|-----------|
+| NUCLEO-L432KC            | STMicroelectronics | Nucleo-64 board     |        1 | Dev (DNP) |
+| STM32F446RE              | STMicroelectronics | 32-bit MCU          |        1 |           |
+| WS2812B                  | (Various)          | Addressable RGB LED |        5 |           |
+
+### 1.2 Pin Configurations
+
+<details markdown="1">
+  <summary>CubeMX Pinout</summary>
+
+![CubeMX Pinout.png](docs/CubeMX%20Pinout.png)
+
+</details>
+
+<details markdown="1">
+  <summary>Pin & Peripherals Table</summary>
+
+| STM32L432KC | Peripheral     | Config | Connection            | Notes |
+|-------------|----------------|--------|-----------------------|-------|
+| PB3         | SYS_JTDO-SWO   |        | SWD/JTAG (ie: TC2050) |       |
+| PA14        | SYS_JTCK-SWCLK |        | SWD/JTAG (ie: TC2050) |       |
+| PA13        | SYS_JTMS-SWDIO |        | SWD/JTAG (ie: TC2050) |       |
+| PA8         | TIM1_CH1       | PWM    | WS2812B Pin 1: DIN    |       |
+
+</details>
+
+### 1.3 Clock Configurations
+
+```
+16 MHz High Speed Internal (HSI)
+↓
+Phase-Locked Loop Main (PLLM)
+↓
+80 MHz SYSCLK
+↓
+80 MHz HCLK
+↓
+ → 80 MHz APB1 (Maxed) → 80 MHz APB1 Timer
+ → 80 MHz APB2 (Maxed) → 80 MHz APB2 Timer
+```
 
 ---
 
@@ -108,8 +151,8 @@ On CubeMX, enable NVIC for TIM1.
 
 The WS2812B driver is made of 2 files:
 
-1. [driver_ws2812b.h](Core/Inc/driver_ws2812b.h)
-2. [driver_ws2812b.c](Core/Src/driver_ws2812b.c)
+1. [driver_ws2812b.h](Core/Inc/driver_ws2812b.h).
+2. [driver_ws2812b.c](Core/Src/driver_ws2812b.c).
 
 ```
 WS2812B_Init(): Initialize DMA, flags, timers, etc.
