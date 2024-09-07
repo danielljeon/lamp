@@ -155,13 +155,13 @@ The WS2812B driver is made of 2 files:
 2. [driver_ws2812b.c](Core/Src/driver_ws2812b.c).
 
 ```
-WS2812B_Init(): Initialize DMA, flags, timers, etc.
+ws2812b_init(): Initialize DMA, flags, timers, etc.
 ↓
-WS2812B_Set_Colour(): Set struct values for (R, G, B) colours.
+ws2812b_set_colour(): Set struct values for (R, G, B) colours.
 ↓
-WS2812B_Update(): Initialize DMA buffer and trigger PWM DMA transfer.
+ws2812b_update(): Initialize DMA buffer and trigger PWM DMA transfer.
 ↓
-WS2812B_Callback(): Called in ISR for end of PWM, stop DMA transfer.
+ws2812b_callback(): Called in ISR for end of PWM, stop DMA transfer.
 ```
 
 #### 2.5.1 PWM Duty Cycle Calculations

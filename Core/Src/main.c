@@ -62,7 +62,7 @@ static void MX_TIM1_Init(void);
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 void HAL_TIM_PWM_PulseFinishedCallback(TIM_HandleTypeDef *htim) {
-  WS2812B_Callback();
+  ws2812b_callback();
 }
 /* USER CODE END 0 */
 
@@ -99,7 +99,7 @@ int main(void)
   MX_USART2_UART_Init();
   MX_TIM1_Init();
   /* USER CODE BEGIN 2 */
-  WS2812B_Init();
+  ws2812b_init();
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -107,9 +107,9 @@ int main(void)
   while (1)
   {
     for (uint8_t led_i = 0; led_i < LED_COUNT; led_i++) {
-      WS2812B_Set_Colour(led_i, 110, 84, 148);
+      ws2812b_set_colour(led_i, 110, 84, 148);
     }
-    WS2812B_Update();
+    ws2812b_update();
 
     HAL_Delay(500);  // TODO(Daniel): Likely poor practice, schedule?
     /* USER CODE END WHILE */

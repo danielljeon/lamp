@@ -13,16 +13,18 @@
 #ifndef __DRIVER_WS2812B_H
 #define __DRIVER_WS2812B_H
 
-/* Includes. */
+/** Includes. *****************************************************************/
 
 #include "stm32l4xx_hal.h"
 
-/* Definitions. */
-
-#define LED_COUNT 5
+/** STM32 port and pin configs. ***********************************************/
 
 #define WS2812B_TIM htim1
 #define WS2812B_TIM_CHANNEL TIM_CHANNEL_1
+
+/** Definitions. **************************************************************/
+
+#define LED_COUNT 5 // TODO: Set WS2812B in series count here.
 
 // Based on 80 MHz peripheral clock at 1-1 pre-scaler and 100-1 ARR with time
 // period of 1.25 us.
@@ -33,6 +35,8 @@
 
 #define WS2812B_DMA_BUF_LEN                                                    \
   ((LED_COUNT * WS2812B_BITS_PER_LED) + WS2812B_RST_VAL_PERIODS)
+
+/** Public structs. ***********************************************************/
 
 /**
  * @brief  Union for representing WS2812B LED color data.
@@ -72,21 +76,21 @@ typedef union {
 
   uint32_t data;
 
-} WS2812B_LED_DATA_RGB;
+} ws2812b_led_data_t;
 
-/* Variables. */
+/** Public varaibles. *********************************************************/
 
-extern WS2812B_LED_DATA_RGB WS2812B_LED_DATA[LED_COUNT];
-extern uint8_t WS2812B_DMA_BUF[WS2812B_DMA_BUF_LEN];
-extern volatile uint8_t WS2812B_DMA_COMPLETE_FLAG;
+extern ws2812b_led_data_t led_data[LED_COUNT];
+extern uint8_t dma_buffer[WS2812B_DMA_BUF_LEN];
+extern volatile uint8_t dma_complete_flag;
 
-/* Functions. */
+/** Public functions. *********************************************************/
 
 /**
  * @brief  Initializes the WS2812B LED control system.
  * @retval HAL_StatusTypeDef: Returns the status of the initialization process.
  */
-HAL_StatusTypeDef WS2812B_Init();
+HAL_StatusTypeDef ws2812b_init();
 
 /**
  * @brief  Sets the color of a specific WS2812B LED.
@@ -105,13 +109,13 @@ HAL_StatusTypeDef WS2812B_Init();
  * WS2812B_Set_Colour(1, 0, 255, 0);
  * @endcode
  */
-void WS2812B_Set_Colour(uint8_t index, uint8_t r, uint8_t g, uint8_t b);
+void ws2812b_set_colour(uint8_t index, uint8_t r, uint8_t g, uint8_t b);
 
 /**
  * @brief  Updates the WS2812B LEDs with the latest color data.
  * @retval HAL_StatusTypeDef: Returns the status of the operation.
  */
-HAL_StatusTypeDef WS2812B_Update();
+HAL_StatusTypeDef ws2812b_update();
 
 /**
  * @brief  Callback function to handle the completion of WS2812B data transfer.
@@ -119,12 +123,12 @@ HAL_StatusTypeDef WS2812B_Update();
  * Example usage within `HAL_TIM_PWM_PulseFinishedCallback()`:
  * @code
  * void HAL_TIM_PWM_PulseFinishedCallback(TIM_HandleTypeDef *htim) {
- *   WS2812B_Callback();
+ *   ws2812b_callback();
  * }
  * @endcode
  *
  * @retval None
  */
-void WS2812B_Callback();
+void ws2812b_callback();
 
 #endif
